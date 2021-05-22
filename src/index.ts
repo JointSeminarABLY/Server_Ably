@@ -7,7 +7,7 @@ connectDB();
 
 app.use(express.json());
 // Define Routes
-app.use("/api/users", require("./api/users"));
+app.use("/api/products", require("./api/products"));
 
 
 
