@@ -18,7 +18,24 @@ router.post(
       });
 
       await product.save();
-      res.json('success');
+      res.json(product);
+      
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server Error");
+    }
+  }
+);
+
+router.get(
+  "/Product",
+  async (req, res) => {
+    try {
+
+      const product = await Product.find
+
+      res.json(product);
+      console.log(res.json(product))
       
     } catch (err) {
       console.error(err.message);
