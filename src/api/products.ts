@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import config from "../config";
 
 const router = express.Router();
@@ -29,20 +29,54 @@ router.post(
 
 router.get(
   "/Product",
-  async (req, res) => {
+  async (req : Request, res : Response) => {
     try {
 
-      const product = await Product.find
+      const product = await Product.find();
 
-      res.json(product);
-      console.log(res.json(product))
-      
+      res.json({
+        "staus" : 200,
+        "success" : true,
+        "message" : "상품 API 불러오기 성공",
+        "data" : {
+          "Product" : product
+        }
+      })
     } catch (err) {
       console.error(err.message);
-      res.status(500).send("Server Error");
+      res.status(500).json({
+        "staus" : 500,
+        "success" : false,
+        "message" : "서버 에러"
+      });
     }
   }
 );
 
+router.get(
+  "/Product/Onepiece",
+  async (req : Request, res : Response) => {
+    try {
+
+      const product = await Product.findOne({category:"Onepiece"}).select(["price","image","shop","name","discount"]);
+
+      res.json({
+        "staus" : 200,
+        "success" : true,
+        "message" : "상품 API 불러오기 성공",
+        "data" : {
+          "Product" : product
+        }
+      })
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).json({
+        "staus" : 500,
+        "success" : false,
+        "message" : "서버 에러"
+      });
+    }
+  }
+);
 
 module.exports = router;
