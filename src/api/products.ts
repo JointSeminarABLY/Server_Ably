@@ -58,7 +58,7 @@ router.get(
   async (req : Request, res : Response) => {
     try {
 
-      const product = await Product.findOne({category:"Onepiece"}).select(["price","image","shop","name","discount"]);
+      const product = await Product.find({category:"Onepiece"}).select(["price","image","shop","name","discount"]);
 
       res.json({
         "staus" : 200,
